@@ -8,11 +8,24 @@ import {
   FlatList,
 } from 'react-native';
 
-import React from 'react';
+import React, {useState} from 'react';
 
 import {COLORS, icons, images, FONTS, SIZES} from './../constants';
+import {initialCurrentLocation, restaurantData, categoryData} from './../data';
 
 const Home = () => {
+  const [categories, setCategories] = useState(categoryData);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [restaurants, setRestaurants] = useState(restaurantData);
+  const [currentLocation, setCurrentLocation] = useState({
+    ...initialCurrentLocation,
+  });
+
+
+  const onSelectCategory = (item) => {
+
+  }
+
   const renderHeader = () => {
     return (
       <View style={{flexDirection: 'row', height: 50}}>
@@ -64,7 +77,66 @@ const Home = () => {
     );
   };
 
-  return <SafeAreaView style={styles.container}>{renderHeader()}</SafeAreaView>;
+  const renderMainCategories = () => {
+    const renderItem = ({ item }) => {
+      return (
+        <TouchableOpacity
+          style={{
+            padding: SIZES.padding,
+            paddingBottom: SIZES.padding * 2,
+            backgroundColor: COLORS.primary,
+            borderRadius: SIZES.radius,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: SIZES.padding,
+            ...styles.shadow,
+          }}
+            onPress={() => onSelectCategory(item)}
+          >
+          <View
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 25,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: COLORS.white,
+            }}>
+            <Image source={item.icon} resizeMode="contain" style={{width: 30, height: 30}} />
+          </View>
+          <View>
+            <Text style={{
+              marginTop: SIZES.padding,
+              color: COLORS.white,
+              ...FONTS.body5
+            }}>{item.name}</Text>
+          </View>
+        </TouchableOpacity>
+      );
+    };
+    return (
+      <View style={{padding: SIZES.padding * 2}}>
+        <Text style={{...FONTS.h1}}>Main</Text>
+        <Text style={{...FONTS.h1}}>Categories</Text>
+
+        <FlatList
+          data={categories}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={item => item.id}
+          renderItem={renderItem}
+          contentContainerStyle={{paddingVertical: SIZES.padding * 2}}
+        />
+      </View>
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {renderHeader()}
+      {renderMainCategories()}
+    </SafeAreaView>
+  );
 };
 
 // custom styles

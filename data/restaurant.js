@@ -1,5 +1,10 @@
 import {images} from './../constants';
 
+// price rating
+const affordable = 1;
+const fairPrice = 2;
+const expensive = 3;
+
 const restaurantData = [
   {
     id: 1,
