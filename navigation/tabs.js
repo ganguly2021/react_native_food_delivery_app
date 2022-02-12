@@ -7,6 +7,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import Svg, {Path} from 'react-native-svg';
+import {isIphoneX} from 'react-native-iphone-x-helper';
 
 import {Home} from './../screens';
 import {COLORS, icons} from './../constants';
@@ -62,6 +63,32 @@ const TabBarCustomButton = ({accessibilityState, children, onPress}) => {
   }
 };
 
+// create custom tab bar
+const CustomTabBar = props => {
+  if (isIphoneX()) {
+    return (
+      <View>
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            left: 0,
+            height: 30,
+            backgroundColor: COLORS.white,
+          }}></View>
+        <BottomTabBar {...props} />
+      </View>
+    );
+  } else {
+    return (
+      <View>
+        <BottomTabBar {...props} />
+      </View>
+    );
+  }
+};
+
 const Tabs = () => {
   return (
     <Tab.Navigator
@@ -72,6 +99,9 @@ const Tabs = () => {
           borderTopWidth: 0,
           elevation: 0,
         },
+      }}
+      tabBar={props => {
+        return <CustomTabBar {...props} />;
       }}>
       <Tab.Screen
         name="Home"
