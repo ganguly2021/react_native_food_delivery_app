@@ -21,10 +21,18 @@ const Home = () => {
     ...initialCurrentLocation,
   });
 
+  const onSelectCategory = category => {
+    // filter restaurant based on category selected
+    const restaurantList = restaurantData.filter(a =>
+      a.categories.includes(categories.id),
+    );
 
-  const onSelectCategory = (item) => {
+    // update restaurant
+    setRestaurants({...restaurantList});
 
-  }
+    // update category state
+    setSelectedCategory({...category});
+  };
 
   const renderHeader = () => {
     return (
@@ -78,21 +86,21 @@ const Home = () => {
   };
 
   const renderMainCategories = () => {
-    const renderItem = ({ item }) => {
+    const renderItem = ({item}) => {
       return (
         <TouchableOpacity
           style={{
             padding: SIZES.padding,
             paddingBottom: SIZES.padding * 2,
-            backgroundColor: COLORS.primary,
+            backgroundColor:
+              selectedCategory?.id == item.id ? COLORS.primary : COLORS.white,
             borderRadius: SIZES.radius,
             alignItems: 'center',
             justifyContent: 'center',
             marginRight: SIZES.padding,
             ...styles.shadow,
           }}
-            onPress={() => onSelectCategory(item)}
-          >
+          onPress={() => onSelectCategory(item)}>
           <View
             style={{
               width: 50,
@@ -100,16 +108,27 @@ const Home = () => {
               borderRadius: 25,
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: COLORS.white,
+              backgroundColor:
+                selectedCategory?.id == item.id
+                  ? COLORS.white
+                  : COLORS.lightGray,
             }}>
-            <Image source={item.icon} resizeMode="contain" style={{width: 30, height: 30}} />
+            <Image
+              source={item.icon}
+              resizeMode="contain"
+              style={{width: 30, height: 30}}
+            />
           </View>
           <View>
-            <Text style={{
-              marginTop: SIZES.padding,
-              color: COLORS.white,
-              ...FONTS.body5
-            }}>{item.name}</Text>
+            <Text
+              style={{
+                marginTop: SIZES.padding,
+                color:
+                  selectedCategory?.id == item.id ? COLORS.white : COLORS.black,
+                ...FONTS.body5,
+              }}>
+              {item.name}
+            </Text>
           </View>
         </TouchableOpacity>
       );
