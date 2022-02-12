@@ -20,15 +20,17 @@ const Tabs = () => {
         component={Home}
         options={{
           tabBarIcon: ({focused}) => {
-            <Image
-              source={icons.cutlery}
-              resizeMode="contain"
-              style={{
-                width: 25,
-                height: 25,
-                tintColor: focused ? COLORS.primary : COLORS.secondary,
-              }}
-            />;
+            return (
+              <Image
+                source={icons.cutlery}
+                resizeMode="contain"
+                style={{
+                  width: 25,
+                  height: 25,
+                  tintColor: focused ? COLORS.primary : COLORS.secondary,
+                }}
+              />
+            );
           },
         }}
       />

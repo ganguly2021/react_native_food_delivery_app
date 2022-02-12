@@ -15,7 +15,7 @@ const App = () => {
       <Stack.Navigator
         screenOptions={{headerShown: false}}
         initialRouteName="Home">
-        <Stack.Screen name="Home" component={Tabs} />
+        <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="OrderDelivery" component={OrderDelivery} />
         <Stack.Screen name="Restaurant" component={Restaurant} />
       </Stack.Navigator>
