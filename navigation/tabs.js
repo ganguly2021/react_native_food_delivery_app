@@ -99,6 +99,7 @@ const Tabs = () => {
           borderTopWidth: 0,
           elevation: 0,
         },
+        headerShown: false,
       }}
       tabBar={props => {
         return <CustomTabBar {...props} />;
