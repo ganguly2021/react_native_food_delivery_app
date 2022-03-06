@@ -218,7 +218,7 @@ const Restaurant = ({route, navigation}) => {
 
   const renderDots = () => {
     const dotPosition = Animated.divide(scrollX, SIZES.width);
-    console.log(dotPosition);
+
     return (
       <View
         style={{
@@ -270,7 +270,68 @@ const Restaurant = ({route, navigation}) => {
   };
 
   const renderOrder = () => {
-    return <View>{renderDots()}</View>;
+    return (
+      <View>
+        {renderDots()}
+        <View
+          style={{
+            borderTopLeftRadius: 40,
+            borderTopRightRadius: 40,
+            backgroundColor: COLORS.white,
+          }}>
+          <View
+            style={{
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              paddingHorizontal: SIZES.padding * 3,
+              paddingVertical: SIZES.padding * 2,
+              borderBottomColor: COLORS.lightGray2,
+              borderBottomWidth: 1,
+            }}>
+            <Text style={{...FONTS.h3}}>Items in cart</Text>
+            <Text style={{...FONTS.h3}}>$45</Text>
+          </View>
+
+          <View
+            style={{
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              paddingHorizontal: SIZES.padding * 3,
+              paddingVertical: SIZES.padding * 2,
+              borderBottomColor: COLORS.lightGray2,
+              borderBottomWidth: 1,
+            }}>
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={icons.pin}
+                style={{
+                  width: 20,
+                  height: 20,
+                  tintColor: COLORS.darkgray,
+                }}
+                resizeMode="contain"
+              />
+              <Text style={{marginLeft: SIZES.padding, ...FONTS.h4}}>
+                Location: {currentLocation?.streetName}
+              </Text>
+            </View>
+
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={icons.master_card}
+                style={{
+                  width: 20,
+                  height: 20,
+                  tintColor: COLORS.darkgray,
+                }}
+                resizeMode="contain"
+              />
+              <Text style={{marginLeft: SIZES.padding, ...FONTS.h4}}>8888</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
   };
 
   return (
