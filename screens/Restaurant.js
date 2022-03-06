@@ -16,6 +16,7 @@ import {icons, COLORS, SIZES, FONTS} from './../constants';
 const Restaurant = ({route, navigation}) => {
   const [restaurant, setRestaurant] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
+  const [quantity, setQuantity] = useState(0);
 
   // componentDidMount
   useEffect(() => {
@@ -73,8 +74,7 @@ const Restaurant = ({route, navigation}) => {
             width: 50,
             justifyContent: 'center',
             // paddingLeft: SIZES.padding * 2,
-          }}
-          >
+          }}>
           <Image
             source={icons.list}
             resizeMode="contain"
@@ -85,7 +85,96 @@ const Restaurant = ({route, navigation}) => {
     );
   };
 
-  return <SafeAreaView style={styles.container}>{renderHeader()}</SafeAreaView>;
+  const renderFoodInfo = () => {
+    return (
+      <Animated.ScrollView
+        horizontal
+        pagingEnabled
+        scrollEventThrottle={16}
+        snapToAlignment="center"
+        showsHorizontalScrollIndicator={false}
+        //onScroll
+      >
+        {restaurant?.menu.map((item, index) => {
+          return (
+            <View
+              key={`menu-${index}`}
+              style={{
+                alignItems: 'center',
+              }}>
+              <View style={{height: SIZES.height * 0.35}}>
+                {/* Food Image */}
+                <Image
+                  source={item.photo}
+                  resizeMode="cover"
+                  style={{
+                    width: SIZES.width,
+                    height: '100%',
+                  }}
+                />
+
+                {/* Quantity */}
+                <View
+                  style={{
+                    position: 'absolute',
+                    bottom: -20,
+                    justifyContent: 'center',
+                    width: SIZES.width,
+                    height: 50,
+                    flexDirection: 'row',
+                  }}>
+                  <TouchableOpacity
+                    disabled={quantity === 0 ? true : false}
+                    style={{
+                      width: 50,
+                      backgroundColor:
+                        quantity === 0 ? COLORS.lightGray : COLORS.white,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderTopLeftRadius: 25,
+                      borderBottomLeftRadius: 25,
+                    }}
+                    onPress={() => setQuantity(prev => prev - 1)}>
+                    <Text style={{...FONTS.body1}}>-</Text>
+                  </TouchableOpacity>
+
+                  {/* Quantity Text */}
+                  <View
+                    style={{
+                      width: 50,
+                      backgroundColor: COLORS.white,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Text style={{...FONTS.body1}}>{quantity}</Text>
+                  </View>
+                  <TouchableOpacity
+                    style={{
+                      width: 50,
+                      backgroundColor: COLORS.white,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderTopRightRadius: 25,
+                      borderBottomRightRadius: 25,
+                    }}
+                    onPress={() => setQuantity(prev => prev + 1)}>
+                    <Text style={{...FONTS.body1}}>+</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          );
+        })}
+      </Animated.ScrollView>
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {renderHeader()}
+      {renderFoodInfo()}
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
