@@ -1,12 +1,21 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native';
 
 const OrderDelivery = () => {
-  return (
-    <View>
-      <Text>OrderDelivery</Text>
-    </View>
-  )
-}
+  const renderMap = () => {
+    return (
+      <View>
+        <Text>Map goes here.</Text>
+      </View>
+    );
+  };
+  return <SafeAreaView style={styles.container}>{renderMap()}</SafeAreaView>;
+};
 
-export default OrderDelivery
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+export default OrderDelivery;
